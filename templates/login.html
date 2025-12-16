@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css') }}" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="Container">
+      <p class="open">
+        Halo sobat Jualan apa kabar?<br />
+        login dulu yuk biar bisa lanjut jualan / beli barang bareng kami
+      </p>
+      <h1>Login</h1>
+      <div class="form_login">
+        {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ error }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endif %} {% if success %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ success }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endif %} {% if success %}
+        <script>
+          setTimeout(() => {
+            window.location.href = "{{ url_for('halamanIndex') }}";
+          }, 1500);
+        </script>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="post">
+          <div class="input_group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" />
+          </div>
+          <div class="input_group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="*****" />
+          </div>
+          <div class="checkbox">
+            <input type="radio" id="user" name="role" value="user" required />
+            <label for="user">Pembeli</label>
+            <input type="radio" id="admin" name="role" value="admin" required />
+            <label for="admin">Penjual</label><br />
+          </div>
+          <div class="forgot">
+            <a href="{{ url_for('halamanForgot') }}">Forgot Password?</a>
+          </div>
+          <div class="daftar">
+            <p>Belum punya akun? <a href="{{ url_for('halamanRegister') }}">Daftar</a></p>
+          </div>
+          <div class="tombol">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

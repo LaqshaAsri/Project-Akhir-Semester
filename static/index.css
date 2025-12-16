@@ -1,0 +1,169 @@
+/* ecomers.css */
+
+/* --- Warna Dasar (Menggantikan body{background-color: ...}) --- */
+body {
+    /* Nuansa biru keabu-abuan lembut */
+    background-color: #d1d8e0;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #4b6587; /* Warna link default */
+}
+
+/* --- Header/Navbar (Menggantikan .bg-primary) --- */
+/* Menimpa warna latar belakang Navbar Bootstrap */
+.navbar {
+    background-color: #4b6587 !important; /* Warna biru gelap/navy elegan */
+    border-bottom: 2px solid #364f6b;
+}
+
+/* Logo Jualan 8 */
+.navbar-brand h2 {
+    color: #fff !important; /* Teks putih di latar belakang gelap */
+    font-weight: 600;
+}
+
+/* Navigasi Link (Home) */
+.navbar-nav .nav-link {
+    color: #fff !important;
+    transition: color 0.3s;
+}
+.navbar-nav .nav-link:hover {
+    color: #a5b1c2 !important; /* Sedikit lebih terang saat hover */
+}
+
+/* Tombol Keranjang */
+.btn-outline-light {
+    border-color: #a5b1c2;
+    color: #fff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-outline-light:hover {
+    background-color: #364f6b; /* Aksen biru lebih gelap saat hover */
+    border-color: #364f6b;
+    color: #fff;
+}
+
+
+/* --- Search Bar --- */
+.form-control {
+    border-radius: 25px; /* Membuat input lebih membulat (modern) */
+    border-color: #a5b1c2;
+    box-shadow: none;
+}
+.form-control:focus {
+    border-color: #364f6b;
+    box-shadow: 0 0 5px rgba(54, 79, 107, 0.5);
+}
+
+
+/* --- Konten Utama (Kategori) --- */
+.kategori h2 {
+    /* Warna judul kategori */
+    color: #364f6b;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+/* Card Kategori */
+.card {
+    border: none; /* Hapus border default card */
+    border-radius: 12px; /* Card lebih membulat (modern) */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efek angkat saat hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.category-img {
+    width: 100%;
+    height: 180px; /* Sedikit lebih tinggi */
+    object-fit: cover;
+    border-radius: 8px; /* Sudut gambar di dalam card */
+}
+
+.card p {
+    color: #4b6587;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* --- Penyesuaian untuk Produk Terbaru --- */
+
+.product-card {
+    /* Menggunakan kembali styling card kategori, tapi sedikit berbeda */
+    border: 1px solid #c8d6e5; /* Border lembut */
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Bayangan lebih tipis */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-3px); /* Efek angkat yang lebih halus */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-img {
+    /* Gaya untuk gambar di bagian atas Card */
+    height: 200px; /* Tinggi gambar produk */
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Penyesuaian tombol 'Lihat Detail' agar sesuai dengan palet warna */
+.btn-primary {
+    background-color: #4b6587 !important; 
+    border-color: #4b6587 !important;
+}
+
+.btn-primary:hover {
+    background-color: #364f6b !important;
+    border-color: #364f6b !important;
+}
+
+/* Judul produk */
+.card-title {
+    color: #364f6b;
+    font-size: 1.1rem;
+}
+
+/* Harga */
+.card-text.text-success {
+    /* Warna hijau Bootstrap diganti menjadi warna aksen yang lebih cocok */
+    color: #2c7744 !important; /* Hijau tua yang elegan */
+}
+/* --- Styling Footer Modern --- */
+
+.footer {
+    /* Menggunakan warna biru gelap/navy yang sama dengan navbar */
+    background-color: #4b6587;
+}
+
+.footer h5 {
+    color: #fff; /* Judul footer berwarna putih */
+}
+
+/* Link di footer */
+.footer a {
+    /* Menargetkan link di footer saja */
+    color: #a5b1c2 !important; /* Warna teks yang lebih terang dari background, tapi lembut */
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: #fff !important; /* Putih bersih saat hover */
+}
+
+/* Teks hak cipta */
+.footer p.small {
+    color: #e6e6e6; /* Warna abu-abu yang lebih cerah untuk teks biasa */
+}

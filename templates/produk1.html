@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk | Nama Produk</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="ecomers.css"> 
+    
+</head>
+<body class="bg-light"> 
+
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-light" href="ecomers.html">
+                <h2 class="h4 mb-0">Jualan 8</h2>
+            </a>
+
+            <form class="d-flex mx-auto col-12 col-lg-5 order-lg-2 order-3 mt-2 mt-lg-0" role="search">
+                <input class="form-control me-2" type="search" placeholder="Cari" aria-label="Cari">
+            </form>
+
+            <div class="d-flex order-lg-3 order-2">
+                <ul class="navbar-nav flex-row">
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-light" href="ecomers.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light rounded-pill" href="#">
+                            <i class="fas fa-shopping-cart me-1"></i>
+                            <span class="d-none d-md-inline">Keranjang</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <div class="row">
+            
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3 detail-card">
+                    
+                    <img src="produk_utama.jpg" class="img-fluid rounded-3 mb-3 detail-img-main" alt="Gambar Utama Produk">
+                    
+                    <div class="d-flex justify-content-start gap-2 d-none d-md-flex">
+                        <img src="produk_thumb1.jpg" class="img-thumbnail detail-thumb" alt="Thumbnail 1">
+                        <img src="produk_thumb2.jpg" class="img-thumbnail detail-thumb" alt="Thumbnail 2">
+                        <img src="produk_thumb3.jpg" class="img-thumbnail detail-thumb" alt="Thumbnail 3">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                
+                <h1 class="mb-2 fw-bold detail-title">Nama Produk yang Dijual</h1>
+                <p class="text-muted mb-3">
+                    <span class="badge bg-warning text-dark me-2">4.7 <i class="fas fa-star"></i></span>
+                    (1.234 Penilaian) | 5.000 Terjual
+                </p>
+                
+                <hr>
+
+                <div class="bg-light p-3 rounded-3 mb-4 detail-price-box">
+                    <h3 class="text-success fw-bolder mb-0 fs-1">Rp 1.250.000</h3>
+                    <p class="text-decoration-line-through text-muted mb-0">Rp 1.500.000</p>
+                    <span class="badge bg-danger">Diskon 17%</span>
+                </div>
+
+                <h6 class="fw-bold">Varian:</h6>
+                <div class="d-flex gap-2 mb-4">
+                    <button class="btn btn-outline-secondary btn-sm active">Biru</button>
+                    <button class="btn btn-outline-secondary btn-sm">Merah</button>
+                    <button class="btn btn-outline-secondary btn-sm">Hijau</button>
+                </div>
+                
+                <div class="d-flex align-items-center mb-4">
+                    <h6 class="fw-bold me-3 mb-0">Jumlah:</h6>
+                    <input type="number" class="form-control me-3" value="1" min="1" style="width: 80px;">
+                    <span class="text-muted small">Stok tersisa: 150</span>
+                </div>
+
+                <div class="d-grid gap-2 d-md-block">
+                    <button class="btn btn-lg btn-outline-primary me-md-2 mb-2 detail-btn-cart" type="button">
+                        <i class="fas fa-cart-plus me-1"></i> Tambah ke Keranjang
+                    </button>
+                    <button class="btn btn-lg btn-primary mb-2 detail-btn-buy" type="button">Beli Sekarang</button>
+                </div>
+                
+                <hr class="my-4">
+                
+                <h4 class="mb-3 fw-bold">Deskripsi Produk</h4>
+                <p class="text-secondary">
+                    Ini adalah tempat untuk menjelaskan semua fitur unggulan dan spesifikasi teknis dari produk.
+                    Gunakan poin-poin atau paragraf yang menarik agar calon pembeli yakin.
+                    (Contoh: Bahan berkualitas tinggi, garansi 2 tahun, pengiriman cepat).
+                </p>
+                <ul class="text-secondary">
+                    <li>Fitur A: Sangat tahan lama dan kuat.</li>
+                    <li>Fitur B: Terdapat 3 pilihan warna menawan.</li>
+                    <li>Dimensi: 10cm x 5cm x 2cm</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <footer class="footer mt-5 py-4">
+        <div class="container">
+            <div class="row text-white">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="fw-bold mb-3">Jualan 8</h5>
+                    <p class="small mb-0">Platform belanja *online* terpercaya Anda.</p>
+                    <p class="small mb-0">Hak Cipta &copy; 2025 Jualan 8.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="fw-bold mb-3">Link Cepat</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none small">Tentang Kami</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none small">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none small">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Ikuti Kami</h5>
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

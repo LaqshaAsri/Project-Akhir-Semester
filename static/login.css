@@ -1,0 +1,95 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #204473;
+    color: white;
+    background-size: cover;
+    
+}
+a{
+    text-decoration: none;
+    color: rgb(61, 169, 227);
+}
+.open{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.form_login{
+    background-color: #0b1f45;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container-h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.input_group{
+    margin-bottom: 15px;
+}
+.input_group label{
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.input_group input{
+    width: 100%;
+    padding: 8px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0b1f45;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.checkbox{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.checkbox{
+    margin-right: 5px;
+}
+.forgot{
+    text-align: right;
+    margin-bottom: 20px;
+}
+.forgot a{
+    color: rgb(61, 169, 227);}
+.forgot a:hover{
+    text-decoration: underline;
+    color: white;
+    transition: 0.3s;
+}
+.daftar{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.daftar a{
+    color: rgb(61, 169, 227);
+}.daftar a:hover{
+    text-decoration: underline;
+    color: white;
+    transition: 0.3s;
+}
+.tombol{
+    text-align: center;
+}
+.tombol button{
+    width: 120px;
+    background-color: #4e64a4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.tombol button:hover{
+    background-color: #193984;
+}

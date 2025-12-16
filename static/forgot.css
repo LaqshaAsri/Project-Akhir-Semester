@@ -1,0 +1,62 @@
+/* Definisi Warna */
+
+:root {
+    --primary-dark: #243452; /* Latar Belakang Utama */
+    --card-dark: #2F405E;    /* Kotak Form */
+    --link-color: #8C99CE;   /* Tautan (Mirip Forgot Password) */
+    --button-color: #7A89C2; /* Tombol (Biru Muda/Lavender) */
+}
+
+/* Latar Belakang Halaman */
+.custom-bg-primary {
+    background-color: var(--primary-dark);
+}
+
+/* Kotak Form (Card) */
+.custom-card-bg {
+    background-color: var(--card-dark);
+    border: none;
+    border-radius: 8px; /* Lebih halus ala Bootstrap */
+}
+
+/* Gaya Input Field */
+.form-control {
+    background-color: #ffffff; /* Input tetap putih */
+    border: none;
+    color: #333;
+    padding: 12px 15px;
+}
+
+/* Tombol Submit */
+.custom-btn-primary {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+    transition: background-color 0.3s;
+}
+
+.custom-btn-primary:hover {
+    background-color: #6877B0; /* Warna Hover */
+    border-color: #6877B0;
+}
+
+/* Gaya Tautan */
+.custom-link-color {
+    color: var(--link-color);
+}
+
+.custom-link-color:hover {
+    color: var(--link-color);
+    opacity: 0.8;
+}
+
+/* Penyesuaian Responsif (Opsional) */
+@media (max-width: 576px) {
+    .card {
+        margin: 15px;
+    }
+}
+input{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    font-weight: bold
+}
