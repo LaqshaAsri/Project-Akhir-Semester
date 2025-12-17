@@ -256,7 +256,7 @@ cart = Cart()
 userManager = UserManager()
 
 # Daftar Halaman Start
-@app.route("/login", methods = ["GET"])
+@app.route("/", methods = ["GET"])
 def halamanLogin():
     return render_template("login.html")
 
