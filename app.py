@@ -1,6 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
-from flask import session
+from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 app.secret_key = "secret123"
 
@@ -273,6 +272,12 @@ def halamanForgot():
 @app.route("/register", methods = ["GET"])
 def halamanRegister():
     return render_template('register.html')
+
+@app.route("/logout")
+def logout():
+    session.pop("login", None)
+    return redirect(url_for("halamanLogin"))
+
 # Daftar Halaman End
 
 # Login Start
