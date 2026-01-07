@@ -377,7 +377,7 @@ while True:
             if choice == '1':
                 os.system('cls')
                 Produk_Admin.tampilkanProduk()
-                input("Tekan Enter untuk kembali...")  
+                input("\nTekan Enter untuk kembali...")  
             elif choice == '2':
                 os.system('cls')
                 Produk_Admin.tampilkanProduk()
@@ -390,7 +390,6 @@ while True:
                         cart.tambah(produk, qty)
                     else:
                         print("Produk tidak ditemukan")
-                    input("Tekan Enter untuk kembali...")
                 else:
                     print("Kembali ke menu utama.")
                 
