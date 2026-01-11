@@ -1,5 +1,6 @@
 import os
 
+# Deklarasi Produk
 class Produk:
     def __init__(self, id, nama, harga, deskripsi, qty, toko):
         self.id = id
@@ -12,6 +13,7 @@ class Produk:
     def info(self):
         return f"{self.id} | {self.nama} | Rp{self.harga:,} | {self.qty} | {self.toko} |".replace(",", ".")
 
+# Fitur-fitur Admin
 class ProdukAdmin:
     def __init__(self):
         self.daftarProduk = []
@@ -20,7 +22,12 @@ class ProdukAdmin:
         self.daftarProduk.append(produk)
 
     def hapusProduk(self, idProduk):
-        self.daftarProduk = [p for p in self.daftarProduk if p.id != idProduk]
+        for p in self.daftarProduk:
+            if p.id == idProduk:
+                self.daftarProduk.remove(p)
+                return True
+        return False
+
 
     def cariProduk(self, idProduk):
         for p in self.daftarProduk:
@@ -81,6 +88,7 @@ class ProdukAdmin:
         for p in self.daftarProduk:
             print(p.info())
 
+# Keranjang User
 class Cart:
     def __init__(self):
         self.items = {}
@@ -146,6 +154,7 @@ class Cart:
         self.items = {pid: it for pid, it in self.items.items() if it["produk"].toko != namaToko}
         print(f"Semua barang dari toko '{namaToko}' telah dihapus")
 
+# Pengecekan Alamat User untuk mendapatkan Ongkir
 class Checkout:
     ongkirPulau = {
             "sumatera":{'aceh': 60000, 'medan': 55000, 'riau': 50000, 'jambi': 50000, 'bengkulu': 60000, 'lampung': 45000},
@@ -202,6 +211,7 @@ class Checkout:
 
         print("\nStok Produk berhasil diperbarui setelah checkout")
 
+# Data User dan Admin untuk login
 class UserManager:
     def __init__(self):
         self.users = {
@@ -215,10 +225,22 @@ class UserManager:
         }
 
     def cekUser(self, username, password):
-        return username in self.users and self.users[username] == password
+        if username not in self.users:
+            return False
+        
+        if self.users[username] != password:
+            return False
+        
+        return True
     
     def cekAdmin(self, username, password):
-        return username in self.admins and self.admins[username] == password
+        if username not in self.admins:
+            return False
+        
+        if self.admins[username] != password:
+            return False
+        
+        return True
     
     def registerUser(self, username, password):
         if username in self.users or username in self.admins:
@@ -226,20 +248,22 @@ class UserManager:
         self.users[username] = password
         return True
 
+# Jalankan Fungsi
 Produk_Admin = ProdukAdmin()
 cart = Cart()
 
+# Dummy produk, bisa ditambahkan melalui menu admin juga
 Produk_Admin.tambahProduk(Produk("P001", "Keyboard", 150000, "Keyboard gaming", 10, "Toko A"))
 Produk_Admin.tambahProduk(Produk("P002", "Mouse", 80000, "Mouse wireles", 10, "Toko B"))
 Produk_Admin.tambahProduk(Produk("P003", "Headset", 250000, "Headset bass", 5, "Toko C"))
 
 userManager = UserManager() 
 
+# Tampilan ketika login atau register
 def menuLogin():
     while True:
         os.system('cls')
         print("=== Login ===")
-
         print('1. Login')
         print('2. Register')
         print('3. Keluar')
@@ -307,6 +331,7 @@ def menuLogin():
             print('Pilihan tidak valid!')
             input("Enter untuk ulang...")
 
+# Tampilan menu admin
 def menuAdmin():
     while True:
         os.system('cls')
@@ -327,12 +352,44 @@ def menuAdmin():
         elif pilihan == "2":
             os.system('cls')
             print("=== Tambah Produk ===")
-            idp = input("ID Produk: ")
-            nama = input("Nama: ")
-            harga = int(input("Harga: "))
-            desk = input("Deskripsi: ")
-            qty = int(input("Qty: "))
-            toko = input("Toko: ")
+            print("Tekan Enter tanpa input untuk membatalkan\n")
+            idp = input("ID Produk: ").strip()
+            if not idp:
+                continue
+            
+            nama = input("Nama: ").strip()
+            if not nama:
+                continue
+            
+            hargaInput = input("Harga: ").strip()
+            if not hargaInput:
+                continue
+            
+            try:
+                harga = int(hargaInput)
+            except:
+                print("Harga harus angka!")
+                input("Enter untuk kembali...")
+                continue
+            
+            desk = input("Deskripsi: ").strip()
+            if not desk:
+                continue
+            
+            qtyInput = input("Qty: ").strip()
+            if not qtyInput:
+                continue
+            
+            try:
+                qty = int(qtyInput)
+            except:
+                print("Qty harus angka!")
+                input("Enter untuk kembali...")
+                continue
+            
+            toko = input("Toko: ").strip()
+            if not toko:
+                continue
 
             Produk_Admin.tambahProduk(Produk(idp, nama, harga, desk, qty, toko))
             print("Produk berhasil ditambah!")
@@ -340,17 +397,44 @@ def menuAdmin():
 
         elif pilihan == "3":
             os.system('cls')
-            pid = input("Masukkan ID produk yang ingin dihapus: ")
-            Produk_Admin.hapusProduk(pid)
-            print("Produk berhasil dihapus!")
+            print("=== Hapus Produk ===")
+            print("Tekan Enter tanpa input untuk membatalkan\n")
+
+            pid = input("Masukkan ID produk yg ingin dihapus: ").strip()
+
+            if not pid:
+                continue
+
+            success = Produk_Admin.hapusProduk(pid)
+
+            if success:
+                print("Produk berhasil dihapus!")
+            else:
+                print("Produk tidak ditemukan!")
+            
             input("Enter untuk kembali...")
 
         elif pilihan == "4":
-            os.system("cls")
-            pid = input("Masukkan ID produk yang ingin diedit: ")
-            Produk_Admin.editProduk(pid)
-            input("Enter untuk kembali...")
+            while True:
+                os.system("cls")
+                print("=== Edit Produk ===")
+                print("Tekan Enter tanpa input untuk membatalkan\n")
 
+                pid = input("Masukkan ID produk yang ingin diedit: ").strip()
+
+                if not pid:
+                    break
+
+                produk = Produk_Admin.cariProduk(pid)
+
+                if not produk:
+                    print("Produk tidak ditemukan!")
+                    input("Enter untuk coba lagi...")
+                    continue
+
+                Produk_Admin.editProduk(pid)
+                input("Enter untuk kembali...")
+            
         elif pilihan == "5":
             return
         
@@ -358,6 +442,7 @@ def menuAdmin():
             print("Pilihan tidak valid!")
             input("Enter untuk ulang...")
 
+# Tampilan Menu user dan juga pengecekan jika user masuk sebagai user atau admin
 while True:
     role = menuLogin()
 
@@ -395,13 +480,6 @@ while True:
                 
                 input("Tekan Enter untuk kembali...")
                     
-
-                # produk = Produk_Admin.cariProduk(pid)
-                # if produk:
-                #     cart.tambah(produk, qty)
-                # else:
-                #     print("Produk tidak ditemukan")
-                # input("Tekan Enter untuk kembali...")
             elif choice == '3':
                 os.system('cls')
                 cart.tampilkan()
@@ -441,3 +519,10 @@ while True:
                 print('Pilihan tidak valid.')
                 print()
                 input('Tekan Enter untuk kembali')
+
+# Why is everything so heavy?
+# Holding on
+# To so much more than i can carry
+# Im so happy if i could die right now
+# Im so happy if i could die right now
+# Someone kill meeeeeeeeeeeeeeeeeeeeee!
