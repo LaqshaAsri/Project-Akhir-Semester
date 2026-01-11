@@ -10,7 +10,7 @@ class Produk:
         self.toko= toko
 
     def info(self):
-        return f"{self.id} | {self.nama} | Rp{self.harga:,}| Stok: {self.qty} | Toko: {self.toko}".replace(",", ".")
+        return f"{self.id} | {self.nama} | Rp{self.harga:,} | {self.qty} | {self.toko} |".replace(",", ".")
 
 class ProdukAdmin:
     def __init__(self):
@@ -76,6 +76,8 @@ class ProdukAdmin:
             print("Tidak ada produk")
             return
         print("=== Daftar Produk ===")
+        print("ID   |   Nama  |    Harga   | Stok | Toko |")
+        print("-------------------------------------------")
         for p in self.daftarProduk:
             print(p.info())
 
@@ -101,7 +103,7 @@ class Cart:
         for item in self.items.values():
             p = item["produk"]
             qty = item["qty"]
-            print(f"{p.nama} | {qty} pcs | Subtotal: Rp{p.harga * qty:,}".replace(",", "."))
+            print(f"{p.nama} | {qty} pcs | Subtotal: Rp{p.harga * qty:,} | {p.toko} |".replace(",", "."))
 
     def hitungSubtotal(self):
         return sum(item["produk"].harga * item["qty"] for item in self.items.values())
@@ -146,12 +148,12 @@ class Cart:
 
 class Checkout:
     ongkirPulau = {
-            "sumatera": 30000,
-            "jawa": 45000,
-            "kalimantan": 50000,
-            "sulawesi": 45000,
-            "papua": 70000,
-            "timor": 65000
+            "sumatera":{'aceh': 60000, 'medan': 55000, 'riau': 50000, 'jambi': 50000, 'bengkulu': 60000, 'lampung': 45000},
+            "jawa": {'jakarta': 45000, 'bandung': 45000, 'surabaya': 45000, 'yogyakarta': 40000, 'semarang': 40000, 'malang': 40000},
+            "kalimantan": {'banjarbaru': 50000, 'pontianak': 50000, 'samarinda': 50000, 'palangkaraya': 55000, 'tarakan': 55000},
+            "sulawesi": {'manado': 60000, 'makassar': 60000, 'palu': 65000, 'kendari': 65000, 'gorontalo': 60000},
+            "papua": { 'jayapura': 80000, 'merauke': 85000, 'biak': 80000, 'timika': 85000, 'sorong': 80000},
+            "bali & nusa tenggara": {'denpasar': 55000, 'mataram': 60000, 'kupang': 65000, 'labuan bajo': 60000, 'sumbawa': 65000}
         }
     
     def __init__(self, cart):
@@ -170,9 +172,10 @@ class Checkout:
         ongkir = 0
 
         for pulau, harga in self.ongkirPulau.items():
-            if pulau in alamat:
-                ongkir = harga
-                break
+            for kota, hargaKota in harga.items():
+                if kota in alamat:
+                    ongkir = hargaKota
+                    break
 
         if ongkir == 0:
             print("\nAlamat tidak tersedia ongkir, akan dikenakan biaya default sebesar Rp70.000")
@@ -181,10 +184,10 @@ class Checkout:
         total = subTotal - diskon + ongkir
 
         print("=== Checkout ===")
-        print(f"Subtotal : Rp{subTotal:,}".replace(",", "."))
-        print(f"Diskon : Rp{diskon:,}".replace(",", "."))
-        print(f"Ongkir : Rp{ongkir:,}".replace(",", "."))
-        print(f"Total : Rp{total:,}".replace(",", "."))
+        print(f"Subtotal : Rp {subTotal:,}".replace(",", "."))
+        print(f"Diskon : Rp {diskon:,}".replace(",", "."))
+        print(f"Ongkir : Rp {ongkir:,}".replace(",", "."))
+        print(f"Total : Rp {total:,}".replace(",", "."))
         print("\nTerima Kasih sudah berbelanja")
 
         for pid, item in list(self.cart.items.items()):
@@ -374,19 +377,31 @@ while True:
             if choice == '1':
                 os.system('cls')
                 Produk_Admin.tampilkanProduk()
-                input("Tekan Enter untuk kembali...")  
+                input("\nTekan Enter untuk kembali...")  
             elif choice == '2':
                 os.system('cls')
                 Produk_Admin.tampilkanProduk()
-                pid = input("/nMasukkan ID produk yang ingin dibeli: ")
-                qty = int(input("Jumlah: "))
-
-                produk = Produk_Admin.cariProduk(pid)
-                if produk:
-                    cart.tambah(produk, qty)
+                tambah_lagi = input("\nApakah Anda ingin menambah produk ke keranjang? (y/n): ").lower()
+                if tambah_lagi == 'y':
+                    pid = input("\nMasukkan ID produk yang ingin dibeli: ")
+                    qty = int(input("Jumlah: "))
+                    produk = Produk_Admin.cariProduk(pid)
+                    if produk:
+                        cart.tambah(produk, qty)
+                    else:
+                        print("Produk tidak ditemukan")
                 else:
-                    print("Produk tidak ditemukan")
+                    print("Kembali ke menu utama.")
+                
                 input("Tekan Enter untuk kembali...")
+                    
+
+                # produk = Produk_Admin.cariProduk(pid)
+                # if produk:
+                #     cart.tambah(produk, qty)
+                # else:
+                #     print("Produk tidak ditemukan")
+                # input("Tekan Enter untuk kembali...")
             elif choice == '3':
                 os.system('cls')
                 cart.tampilkan()
