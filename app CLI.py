@@ -523,6 +523,7 @@ while True:
 # Why is everything so heavy?
 # Holding on
 # To so much more than i can carry
+# I rather live, die, than live forever
 # Im so happy if i could die right now
 # Im so happy if i could die right now
 # Someone kill meeeeeeeeeeeeeeeeeeeeee!
