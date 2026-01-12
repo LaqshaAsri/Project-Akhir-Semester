@@ -173,12 +173,22 @@ class Checkout:
             print("Keranjang kosong, tidak bisa checkout")
             return
         subTotal = self.cart.hitungSubtotal()
-
-        diskon = 0.1 * subTotal if subTotal > 5000000 else 0
-
+        if subTotal > 200000:
+            persen = 0.15
+        elif subTotal > 50000:
+            persen = 0.10
+        else:
+            persen = 0
+            
+        diskon = min(subTotal * persen, 50000)
         alamat = input("Masukkan alamat tujuan: ").lower()
 
         ongkir = 0
+
+        if subTotal > 150000:
+            potongan_ongkir = 20000
+            ongkir = max(0, ongkir - potongan_ongkir)
+            print(f"Promo: Potongan ongkir Rp {potongan_ongkir} aktif!")
 
         for pulau, harga in self.ongkirPulau.items():
             for kota, hargaKota in harga.items():
@@ -475,6 +485,7 @@ while True:
                         cart.tambah(produk, qty)
                     else:
                         print("Produk tidak ditemukan")
+                        
                 else:
                     print("Kembali ke menu utama.")
                 
