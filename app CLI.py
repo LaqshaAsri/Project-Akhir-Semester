@@ -390,18 +390,12 @@ while True:
                         cart.tambah(produk, qty)
                     else:
                         print("Produk tidak ditemukan")
+                        
                 else:
                     print("Kembali ke menu utama.")
                 
                 input("Tekan Enter untuk kembali...")
                     
-
-                # produk = Produk_Admin.cariProduk(pid)
-                # if produk:
-                #     cart.tambah(produk, qty)
-                # else:
-                #     print("Produk tidak ditemukan")
-                # input("Tekan Enter untuk kembali...")
             elif choice == '3':
                 os.system('cls')
                 cart.tampilkan()
