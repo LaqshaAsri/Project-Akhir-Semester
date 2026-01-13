@@ -1,3 +1,4 @@
+from email import header
 import os
 
 # Deklarasi Produk
@@ -11,7 +12,8 @@ class Produk:
         self.toko= toko
 
     def info(self):
-        return f"{self.id} | {self.nama} | Rp{self.harga:,} | {self.qty} | {self.toko} |".replace(",", ".")
+        harga_str = f"Rp {self.harga:,}".replace(",", ".")
+        return f"{str(self.id):<4} | {self.nama:<12} | {harga_str:>12} | {str(self.qty):<4} | {self.toko:<10} |"
 
 # Fitur-fitur Admin
 class ProdukAdmin:
@@ -19,7 +21,8 @@ class ProdukAdmin:
         self.daftarProduk = []
 
     def tambahProduk(self, produk):
-        self.daftarProduk.append(produk)
+            self.daftarProduk.append(produk)
+        
 
     def hapusProduk(self, idProduk):
         for p in self.daftarProduk:
@@ -82,11 +85,13 @@ class ProdukAdmin:
         if not self.daftarProduk:
             print("Tidak ada produk")
             return
-        print("=== Daftar Produk ===")
-        print("ID   |   Nama  |    Harga   | Stok | Toko |")
-        print("-------------------------------------------")
+        header = f"{'ID':<4} | {'Nama':<12} | {'Harga':>12} | {'Stok':<4} | {'Toko':<10} |"
+        print("=" * len(header))
+        print(header)
+        print("-" * len(header))
         for p in self.daftarProduk:
             print(p.info())
+        print("-" * len(header))
 
 # Keranjang User
 class Cart:
@@ -111,7 +116,7 @@ class Cart:
         for item in self.items.values():
             p = item["produk"]
             qty = item["qty"]
-            print(f"{p.nama} | {qty} pcs | Subtotal: Rp{p.harga * qty:,} | {p.toko} |".replace(",", "."))
+            print(f"{p.id} | {p.nama} | {qty} pcs | Subtotal: Rp {p.harga * qty:,} | {p.toko} |".replace(",", "."))
 
     def hitungSubtotal(self):
         return sum(item["produk"].harga * item["qty"] for item in self.items.values())
@@ -153,6 +158,9 @@ class Cart:
     def hapusByToko(self, namaToko):
         self.items = {pid: it for pid, it in self.items.items() if it["produk"].toko != namaToko}
         print(f"Semua barang dari toko '{namaToko}' telah dihapus")
+    def hapusSemua(self):
+        self.items.clear()
+        print("Semua item di keranjang telah dihapus")
 
 # Pengecekan Alamat User untuk mendapatkan Ongkir
 class Checkout:
@@ -168,24 +176,48 @@ class Checkout:
     def __init__(self, cart):
         self.cart = cart
 
-    def proses(self):
+    def proses(self, target_id=None):
         if not self.cart.items:
             print("Keranjang kosong, tidak bisa checkout")
             return
-        subTotal = self.cart.hitungSubtotal()
+        
+        print("\n--- Opsi Checkout ---")
+        print("1. Checkout Semua Barang")
+        print("2. Checkout ID Tertentu")
+        pilihan = input("Pilih (1/2): ")
+        
+        items_to_process = {}
+        
+        if pilihan == "2":
+            print("\nID Produk dalam keranjang:")
+            for pid in self.cart.items.keys():
+                print(f"- {pid}")
+            
+            target_id = input("Masukkan ID Produk yang ingin di-checkout: ")
+            
+            if target_id in self.cart.items:
+                items_to_process[target_id] = self.cart.items[target_id]
+            else:
+                print("ID tidak ditemukan di keranjang!")
+                return
+        else:
+            items_to_process = self.cart.items.copy()
+    
+        subTotal = sum(item['produk'].harga * item['qty'] for item in items_to_process.values())
         if subTotal > 200000:
-            persen = 0.15
+            persen = 0.20
         elif subTotal > 50000:
             persen = 0.10
         else:
             persen = 0
             
         diskon = min(subTotal * persen, 50000)
+
         alamat = input("Masukkan alamat tujuan: ").lower()
 
         ongkir = 0
 
-        if subTotal > 150000:
+        if  subTotal > 150000:
             potongan_ongkir = 20000
             ongkir = max(0, ongkir - potongan_ongkir)
             print(f"Promo: Potongan ongkir Rp {potongan_ongkir} aktif!")
@@ -201,7 +233,7 @@ class Checkout:
             ongkir = 70000
 
         total = subTotal - diskon + ongkir
-
+        #Struk Checkout
         print("=== Checkout ===")
         print(f"Subtotal : Rp {subTotal:,}".replace(",", "."))
         print(f"Diskon : Rp {diskon:,}".replace(",", "."))
@@ -209,7 +241,7 @@ class Checkout:
         print(f"Total : Rp {total:,}".replace(",", "."))
         print("\nTerima Kasih sudah berbelanja")
 
-        for pid, item in list(self.cart.items.items()):
+        for pid, item in items_to_process.items():
             produk = item["produk"]
             qtyBeli = item["qty"]
 
@@ -263,9 +295,13 @@ Produk_Admin = ProdukAdmin()
 cart = Cart()
 
 # Dummy produk, bisa ditambahkan melalui menu admin juga
-Produk_Admin.tambahProduk(Produk("P001", "Keyboard", 150000, "Keyboard gaming", 10, "Toko A"))
-Produk_Admin.tambahProduk(Produk("P002", "Mouse", 80000, "Mouse wireles", 10, "Toko B"))
-Produk_Admin.tambahProduk(Produk("P003", "Headset", 250000, "Headset bass", 5, "Toko C"))
+Produk_Admin.tambahProduk(Produk("P001", "Keyboard", 150000, "Keyboard gaming", 10, "GamingStore"))
+Produk_Admin.tambahProduk(Produk("P002", "Mouse", 80000, "Mouse wireles", 10, "GamingStore"))
+Produk_Admin.tambahProduk(Produk("P003", "Headset", 250000, "Headset bass", 5, "GamingStore"))
+Produk_Admin.tambahProduk(Produk("P004", "Monitor", 1250000, "Monitor 24 inch", 3, "TechWorld"))
+Produk_Admin.tambahProduk(Produk("P005", "Laptop", 5500000, "Laptop gaming", 2, "TechWorld"))
+Produk_Admin.tambahProduk(Produk("P006", "Smartphone", 3000000, "Smartphone terbaru", 7, "GadgetHub"))
+
 
 userManager = UserManager() 
 
@@ -307,6 +343,7 @@ def menuLogin():
                     print('\nUsername atau password admin salah!')
                     input('Enter untuk ulang...')
             elif pilihan == '3':
+                print("Keluar program...")
                 exit()
             else:
                 print("Pilihan tidak valid!")
@@ -364,6 +401,7 @@ def menuAdmin():
             print("=== Tambah Produk ===")
             print("Tekan Enter tanpa input untuk membatalkan\n")
             idp = input("ID Produk: ").strip()
+
             if not idp:
                 continue
             
@@ -401,6 +439,10 @@ def menuAdmin():
             if not toko:
                 continue
 
+            if Produk_Admin.cariProduk(idp):
+                print("ID produk sudah ada!")
+                input("Enter untuk kembali...")
+                continue
             Produk_Admin.tambahProduk(Produk(idp, nama, harga, desk, qty, toko))
             print("Produk berhasil ditambah!")
             input("Enter untuk kembali...")
@@ -495,21 +537,67 @@ while True:
                 os.system('cls')
                 cart.tampilkan()
                 print("=== Keranjang ===")
-                print("1. Hapus item berdasarkan ID")
-                print("2. Hapus item berdasarkan toko")
-                print("3. Kembali")
+                print("1. Sesuaikan qty item")
+                print("2. Hapus item berdasarkan ID")
+                print("3. Hapus item berdasarkan toko")
+                print("4. Hapus semua item di keranjang")
+                print("5. Kembali")
                 
-                pilih = input("Pilih menuh 1-3: ").strip()
+                pilih = input("Pilih menuh 1-5: ").strip()
 
                 if pilih == '1':
+                    if not cart.items:
+                        print("Keranjang kosong")
+                        input("Tekan Enter untuk lanjut...")
+                        continue
+                    
+                    pid = input("Masukkan ID produk yang ingin disesuaikan qty-nya: ")
+                    if pid not in cart.items:
+                        print("Produk tidak ditemukan di keranjang.")
+                        input("Tekan Enter untuk lanjut...")
+                        continue
+
+                    item = cart.items[pid]
+                    p = item["produk"]
+                    qtySaatIni = item["qty"]
+
+                    print(f"\nProduk: {p.nama}")
+                    print(f"Qty di keranjang: {qtySaatIni}")
+
+                    try:
+                        qtyBaru = int(input("Masukkan jumlah qty baru: "))
+                    except:
+                        print("input tidak valid")
+                        input("Tekan Enter untuk lanjut...")
+                        continue
+                    
+                    if qtyBaru <= 0:
+                        print("Qty tidak boleh kurang dari 1")
+                        input("Tekan Enter untuk lanjut...")
+                        continue
+                    
+                    if qtyBaru > p.qty:
+                        print("Stok tidak mencukupi!")
+                        input("Tekan Enter untuk lanjut...")
+                        continue
+
+                    item["qty"] = qtyBaru
+                    print(f"Qty produk {p.nama} berhasil diperbarui menjadi {qtyBaru}")
+                    input("Tekan Enter untuk lanjut...")
+                    
+               
+                elif pilih == "2":
                     pid = input("Masukkan ID produk yang ingin dihapus: ")
                     cart.hapusById(pid)
                     input("Tekan Enter untuk lanjut...")
-                elif pilih == "2":
+                elif pilih == "3":
                     toko = input("Masukkan nama toko: ")
                     cart.hapusByToko(toko)
                     input("Tekan Enter untuk lanjut...")
-                elif pilih == "3":
+                elif pilih == "4":
+                    cart.hapusSemua()
+                    input("Tekan Enter untuk lanjut...")
+                elif pilih == "5":
                     continue
                 else:
                     print("Pilihan tidak valid")
