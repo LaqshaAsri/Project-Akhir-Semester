@@ -148,15 +148,20 @@ class Cart:
             self.items[produk.id]["qty"] += qty
         print("Produk ditambahkan ke keranjang")
     
-    def tampilkan(self):
+    def tampilkan(self):        
         if not self.items:
             print("Keranjang Kosong")
             return
         print("=== Isi Keranjang ===")
+        table = [['nama'],['qty'], ['subtotal'], ['toko']]
         for item in self.items.values():
             p = item["produk"]
             qty = item["qty"]
-            print(f"{p.id} | {p.nama} | {qty} pcs | Subtotal: Rp {p.harga * qty:,} | {p.toko} |".replace(",", "."))
+            table[0].append(f'{p.nama}')
+            table[1].append(f'{qty}')
+            table[2].append(f'Rp{p.harga * qty:,}'.replace(',', '.'))
+            table[3].append(f'{p.toko}')
+        print_table(table)
 
     def hitungSubtotal(self):
         return sum(item["produk"].harga * item["qty"] for item in self.items.values())
