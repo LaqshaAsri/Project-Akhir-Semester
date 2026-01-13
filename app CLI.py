@@ -153,14 +153,15 @@ class Cart:
             print("Keranjang Kosong")
             return
         print("=== Isi Keranjang ===")
-        table = [['nama'],['qty'], ['subtotal'], ['toko']]
+        table = [['id'],['nama'],['qty'], ['subtotal'], ['toko']]
         for item in self.items.values():
             p = item["produk"]
             qty = item["qty"]
-            table[0].append(f'{p.nama}')
-            table[1].append(f'{qty}')
-            table[2].append(f'Rp{p.harga * qty:,}'.replace(',', '.'))
-            table[3].append(f'{p.toko}')
+            table[0].append(f'{p.id}')
+            table[1].append(f'{p.nama}')
+            table[2].append(f'{qty}')
+            table[3].append(f'Rp{p.harga * qty:,}'.replace(',', '.'))
+            table[4].append(f'{p.toko}')
         print_table(table)
 
     def hitungSubtotal(self):
@@ -223,14 +224,15 @@ class WishCart:
             print("WishList Kosong")
             return
         print("=== Isi WishList ===")
-        table = [['nama'],['qty'], ['subtotal'], ['toko']]
+        table = [['id'],['nama'],['qty'], ['subtotal'], ['toko']]
         for item in self.items.values():
             p = item["produk"]
             qty = item["qty"]
-            table[0].append(f'{p.nama}')
-            table[1].append(f'{qty}')
-            table[2].append(f'Rp{p.harga * qty:,}'.replace(',', '.'))
-            table[3].append(f'{p.toko}')
+            table[0].append(f'{p.id}')
+            table[1].append(f'{p.nama}')
+            table[2].append(f'{qty}')
+            table[3].append(f'Rp{p.harga * qty:,}'.replace(',', '.'))
+            table[4].append(f'{p.toko}')
         print_table(table)
 
     def hitungSubtotal(self):
